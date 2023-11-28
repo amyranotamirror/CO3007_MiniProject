@@ -7,3 +7,5 @@
 ../Core/Src/traffic.c:68:6:traffic1Red	1
 ../Core/Src/traffic.c:71:6:traffic1Yellow	1
 ../Core/Src/traffic.c:74:6:traffic1Green	1
+../Core/Src/traffic.c:80:6:trafficAuto	1
+../Core/Src/traffic.c:88:6:trafficStop	2

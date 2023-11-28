@@ -7,9 +7,9 @@
 
 #include "traffic.h"
 
-int trafficRedDuration = 0;
-int trafficYellowDuration = 0;
-int trafficGreenDuration = 0;
+int trafficRedDuration = 5000;
+int trafficYellowDuration = 2000;
+int trafficGreenDuration = 3000;
 enum TRAFFIC_STATE trafficState[TRAFFIC_NUMBER] = {0, 0};
 
 static GPIO_TypeDef* trafficRedPorts[TRAFFIC_NUMBER] = {TRAFFIC0_RED_GPIO_Port, TRAFFIC1_RED_GPIO_Port};
@@ -75,13 +75,18 @@ void traffic1Green(void) {
 	trafficToggle(1, TRAFFIC_GREEN);
 }
 
-void traffic0Auto(void) {
-	SCH_AddTask(traffic0Red, 0, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
-	SCH_AddTask(traffic0Green, trafficRedDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
-	SCH_AddTask(traffic0Yellow, trafficRedDuration + trafficYellowDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
+static uint8_t taskIDs[6] = {};
+
+void trafficAuto(void) {
+	taskIDs[0] = SCH_AddTask(traffic0Red, 0, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
+	taskIDs[1] = SCH_AddTask(traffic0Green, trafficRedDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
+	taskIDs[2] = SCH_AddTask(traffic0Yellow, trafficRedDuration + trafficYellowDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
+	taskIDs[3] = SCH_AddTask(traffic1Green, 0, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
+	taskIDs[4] = SCH_AddTask(traffic1Yellow, trafficGreenDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
+	taskIDs[5] = SCH_AddTask(traffic1Red, trafficGreenDuration + trafficYellowDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
 }
-void traffic1Auto(void) {
-	SCH_AddTask(traffic1Green, trafficRedDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
-	SCH_AddTask(traffic1Yellow, trafficRedDuration + trafficYellowDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
-	SCH_AddTask(traffic1Red, 0, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
+void trafficStop(void) {
+	for (uint8_t i = 0; i < 6; i ++) {
+		SCH_DeleteTask(taskIDs[i]);
+	}
 }
