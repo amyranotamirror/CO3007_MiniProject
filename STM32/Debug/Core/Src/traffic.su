@@ -1,0 +1,9 @@
+../Core/Src/traffic.c:23:6:trafficToggle	16	static
+../Core/Src/traffic.c:52:6:traffic0Off	8	static
+../Core/Src/traffic.c:55:6:traffic0Red	8	static
+../Core/Src/traffic.c:58:6:traffic0Yellow	8	static
+../Core/Src/traffic.c:61:6:traffic0Green	8	static
+../Core/Src/traffic.c:65:6:traffic1Off	8	static
+../Core/Src/traffic.c:68:6:traffic1Red	8	static
+../Core/Src/traffic.c:71:6:traffic1Yellow	8	static
+../Core/Src/traffic.c:74:6:traffic1Green	8	static

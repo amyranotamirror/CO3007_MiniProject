@@ -22,7 +22,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "scheduler.h"
+#include "button.h"
 #include "led.h"
+#include "traffic.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -101,6 +103,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   SCH_AddTask(ledBlink, 0, 1000);
+  SCH_AddTask(buttonReading, 0, 10);
   while (1)
   {
     /* USER CODE END WHILE */
