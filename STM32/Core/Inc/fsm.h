@@ -9,7 +9,10 @@
 #define INC_FSM_H_
 
 #include "scheduler.h"
+#include "button.h"
 #include "traffic.h"
+
+enum FSM_STATE {FSM_AUTO, FSM_MANUAL, FSM_TUNNING};
 
 void fsmProcessing(void);
 

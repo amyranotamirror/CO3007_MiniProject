@@ -22,6 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "scheduler.h"
+#include "fsm.h"
 #include "button.h"
 #include "led.h"
 #include "traffic.h"
@@ -104,6 +105,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   SCH_AddTask(ledBlink, 0, 1000);
   SCH_AddTask(buttonReading, 0, 10);
+  SCH_AddTask(fsmProcessing, 0, 10);
   while (1)
   {
     /* USER CODE END WHILE */

@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
-#define SCH_TASKNUMBER 16
+#define SCH_TASKNUMBER 40
 #define SCH_TIMERTICK 10
 
 typedef struct {

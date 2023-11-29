@@ -7,9 +7,9 @@
 
 #include "traffic.h"
 
-int trafficRedDuration = 5000;
-int trafficYellowDuration = 2000;
-int trafficGreenDuration = 3000;
+int trafficRedDuration = 500;
+int trafficYellowDuration = 200;
+int trafficGreenDuration = 300;
 enum TRAFFIC_STATE trafficState[TRAFFIC_NUMBER] = {0, 0};
 
 static GPIO_TypeDef* trafficRedPorts[TRAFFIC_NUMBER] = {TRAFFIC0_RED_GPIO_Port, TRAFFIC1_RED_GPIO_Port};
