@@ -7,3 +7,6 @@
 ../Core/Src/traffic.c:79:6:traffic1Red	8	static
 ../Core/Src/traffic.c:82:6:traffic1Green	8	static
 ../Core/Src/traffic.c:85:6:traffic1Yellow	8	static
+../Core/Src/traffic.c:89:6:trafficRedToggle	8	static
+../Core/Src/traffic.c:95:6:trafficGreenToggle	8	static
+../Core/Src/traffic.c:101:6:trafficYellowToggle	8	static

@@ -85,3 +85,22 @@ void traffic1Green(void) {
 void traffic1Yellow(void) {
 	trafficToggle(1, TRAFFIC_YELLOW);
 }
+
+void trafficRedToggle(void) {
+	SCH_AddTask(traffic0Red, 0, 0);
+	SCH_AddTask(traffic1Red, 0, 0);
+	SCH_AddTask(traffic0Off, 500, 0);
+	SCH_AddTask(traffic1Off, 500, 0);
+}
+void trafficGreenToggle(void) {
+	SCH_AddTask(traffic0Green, 0, 0);
+	SCH_AddTask(traffic1Green, 0, 0);
+	SCH_AddTask(traffic0Off, 500, 0);
+	SCH_AddTask(traffic1Off, 500, 0);
+}
+void trafficYellowToggle(void) {
+	SCH_AddTask(traffic0Yellow, 0, 0);
+	SCH_AddTask(traffic1Yellow, 0, 0);
+	SCH_AddTask(traffic0Off, 500, 0);
+	SCH_AddTask(traffic1Off, 500, 0);
+}

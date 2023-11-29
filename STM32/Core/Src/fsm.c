@@ -9,9 +9,10 @@
 
 #define FSM_AUTO_TASK 7
 #define FSM_MANUAL_TASK 1
-#define FSM_TUNNING_TASK 1
+#define FSM_TUNNING_TASK 2
 
 static enum FSM_STATE fsmState = FSM_AUTO;
+static enum TRAFFIC_STATE fsmTunningState = TRAFFIC_RED;
 
 static uint8_t fsmAutoIDs[FSM_AUTO_TASK] = {};
 static uint8_t fsmManualIDs[FSM_MANUAL_TASK] = {};
@@ -103,9 +104,47 @@ void fsmInitManual(void) {
 	fsmManualIDs[0] = SCH_AddTask(fsmManual, 10, 10);
 }
 
-void fsmTunning(void) {}
+void fsmTunning(void) {
+	if (buttonPressed(1)) {
+		SCH_DeleteTask(fsmTunningIDs[1]);
+		switch (fsmTunningState) {
+		case TRAFFIC_RED:
+			fsmTunningIDs[1] = SCH_AddTask(trafficGreenToggle, 0, 1000);
+			fsmTunningState = TRAFFIC_GREEN;
+			break;
+		case TRAFFIC_GREEN:
+			fsmTunningIDs[1] = SCH_AddTask(trafficYellowToggle, 0, 1000);
+			fsmTunningState = TRAFFIC_YELLOW;
+			break;
+		case TRAFFIC_YELLOW:
+			fsmTunningIDs[1] = SCH_AddTask(trafficRedToggle, 0, 1000);
+			fsmTunningState = TRAFFIC_RED;
+			break;
+		default:
+			break;
+		}
+	}
+	if (buttonPressed(2)) {
+		switch (fsmTunningState) {
+		case TRAFFIC_RED:
+			trafficRedDuration = (trafficRedDuration + 1000) % 100000;
+			break;
+		case TRAFFIC_GREEN:
+			trafficGreenDuration = (trafficGreenDuration + 1000) % 100000;
+			break;
+		case TRAFFIC_YELLOW:
+			trafficYellowDuration = (trafficYellowDuration + 1000) % 100000;
+			break;
+		default:
+			break;
+		}
+	}
+}
 
 void fsmInitTunning(void) {
+	fsmTunningIDs[1] = SCH_AddTask(trafficRedToggle, 0, 1000);
+	SCH_AddTask(pedestrian0Off, 0, 0);
+	SCH_AddTask(pedestrian1Off, 0, 0);
 	fsmTunningIDs[0] = SCH_AddTask(fsmTunning, 10, 10);
 }
 

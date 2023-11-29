@@ -34,4 +34,8 @@ void traffic1Red(void);
 void traffic1Green(void);
 void traffic1Yellow(void);
 
+void trafficRedToggle(void);
+void trafficGreenToggle(void);
+void trafficYellowToggle(void);
+
 #endif /* INC_TRAFFIC_H_ */
