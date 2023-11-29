@@ -7,6 +7,8 @@
 
 #include "pedestrian.h"
 
+enum PEDESTRIAN_STATE pedestrianStates[PEDESTRIAN_NUMBER] = {};
+
 static GPIO_TypeDef* pedestrianRedPorts[PEDESTRIAN_NUMBER] = {PEDESTRIAN0_RED_GPIO_Port, PEDESTRIAN1_RED_GPIO_Port};
 static GPIO_TypeDef* pedestrianGreenPorts[PEDESTRIAN_NUMBER] = {PEDESTRIAN0_GREEN_GPIO_Port, PEDESTRIAN1_GREEN_GPIO_Port};
 
@@ -18,14 +20,17 @@ void pedestrianToggle(uint8_t index, enum PEDESTRIAN_STATE state) {
 	case PEDESTRIAN_OFF:
 		HAL_GPIO_WritePin(pedestrianRedPorts[index], pedestrianRedPins[index], GPIO_PIN_SET);
 		HAL_GPIO_WritePin(pedestrianGreenPorts[index], pedestrianGreenPins[index], GPIO_PIN_SET);
+		pedestrianStates[index] = PEDESTRIAN_OFF;
 		break;
 	case PEDESTRIAN_RED:
 		HAL_GPIO_WritePin(pedestrianRedPorts[index], pedestrianRedPins[index], GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(pedestrianGreenPorts[index], pedestrianGreenPins[index], GPIO_PIN_SET);
+		pedestrianStates[index] = PEDESTRIAN_RED;
 		break;
 	case PEDESTRIAN_GREEN:
 		HAL_GPIO_WritePin(pedestrianRedPorts[index], pedestrianRedPins[index], GPIO_PIN_SET);
 		HAL_GPIO_WritePin(pedestrianGreenPorts[index], pedestrianGreenPins[index], GPIO_PIN_RESET);
+		pedestrianStates[index] = PEDESTRIAN_GREEN;
 		break;
 	default:
 		break;
