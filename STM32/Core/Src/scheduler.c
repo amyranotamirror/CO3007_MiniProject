@@ -35,14 +35,15 @@ void SCH_Update(void) {
 }
 
 void SCH_Dispatch(void) {
-	if (tasks[0].functionPointer == 0 || tasks[0].flag == 0) return;
-	(*tasks[0].functionPointer)();
-	tasks[0].flag = 0;
-	SCH_Task newTask = tasks[0];
-	SCH_DeleteTask(tasks[0].id);
-	if (newTask.period > 0) {
-		SCH_AddTask(newTask.functionPointer, newTask.period, newTask.period);
-	}
+    if (tasks[0].flag == 0) return;
+    printf("Dispatch Task %d\n", tasks[0].id);
+    (*tasks[0].functionPointer)();
+    if (tasks[0].period > 0) {
+        SCH_RefreshTask();
+    }
+    else {
+        SCH_DeleteTask(tasks[0].id);
+    }
 }
 
 uint8_t SCH_AddTask(void (*functionPointer)(void), uint32_t delay, uint32_t period) {
@@ -98,6 +99,46 @@ unsigned char SCH_DeleteTask(uint8_t id) {
             tasks[SCH_TASKNUMBER - 1].period = 0;
             tasks[SCH_TASKNUMBER - 1].flag = 0;
             return tasks[SCH_TASKNUMBER - 1].functionPointer == 0;
+        }
+    }
+    return 0;
+}
+
+unsigned char SCH_RefreshTask(void) {
+    if (tasks[0].functionPointer == 0 || tasks[0].delay != 0) return 0;
+    SCH_Task currentTask = tasks[0];
+    uint32_t currentDelay = 0;
+    for (uint8_t i = 0; i < SCH_TASKNUMBER; i ++) {
+        if (i + 1 == SCH_TASKNUMBER || tasks[i + 1].functionPointer == NULL) {
+            tasks[i].functionPointer = currentTask.functionPointer;
+            tasks[i].id = currentTask.id;
+            tasks[i].period = currentTask.period;
+            tasks[i].flag = 0;
+            tasks[i].delay = currentTask.period - currentDelay;
+            if (tasks[i].delay == 0) {
+                tasks[i].flag = 1;
+            }
+            return 1;
+        }
+        currentDelay += tasks[i + 1].delay;
+        if (currentDelay > currentTask.period) {
+            tasks[i].functionPointer = currentTask.functionPointer;
+            tasks[i].id = currentTask.id;
+            tasks[i].period = currentTask.period;
+            tasks[i].flag = 0;
+            int newDelay = currentDelay - currentTask.period;
+            tasks[i].delay = tasks[i + 1].delay - newDelay;
+            if (tasks[i].delay == 0) {
+                tasks[i].flag = 1;
+            }
+            tasks[i + 1].delay -= tasks[i].delay;
+            if (tasks[i + 1].delay == 0) {
+                tasks[i + 1].flag = 1;
+            }
+            return 1;
+        }
+        else {
+            tasks[i] = tasks[i + 1];
         }
     }
     return 0;
