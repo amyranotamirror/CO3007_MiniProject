@@ -7,5 +7,3 @@
 ../Core/Src/traffic.c:68:6:traffic1Red	8	static
 ../Core/Src/traffic.c:71:6:traffic1Yellow	8	static
 ../Core/Src/traffic.c:74:6:traffic1Green	8	static
-../Core/Src/traffic.c:80:6:trafficAuto	8	static
-../Core/Src/traffic.c:88:6:trafficStop	16	static

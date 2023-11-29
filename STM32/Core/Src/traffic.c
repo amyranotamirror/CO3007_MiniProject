@@ -74,19 +74,3 @@ void traffic1Yellow(void) {
 void traffic1Green(void) {
 	trafficToggle(1, TRAFFIC_GREEN);
 }
-
-static uint8_t taskIDs[6] = {};
-
-void trafficAuto(void) {
-	taskIDs[0] = SCH_AddTask(traffic0Red, 0, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
-	taskIDs[1] = SCH_AddTask(traffic0Green, trafficRedDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
-	taskIDs[2] = SCH_AddTask(traffic0Yellow, trafficRedDuration + trafficYellowDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
-	taskIDs[3] = SCH_AddTask(traffic1Green, 0, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
-	taskIDs[4] = SCH_AddTask(traffic1Yellow, trafficGreenDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
-	taskIDs[5] = SCH_AddTask(traffic1Red, trafficGreenDuration + trafficYellowDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
-}
-void trafficStop(void) {
-	for (uint8_t i = 0; i < 6; i ++) {
-		SCH_DeleteTask(taskIDs[i]);
-	}
-}

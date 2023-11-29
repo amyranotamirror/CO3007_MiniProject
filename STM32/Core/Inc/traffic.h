@@ -31,7 +31,4 @@ void traffic1Red(void);
 void traffic1Yellow(void);
 void traffic1Green(void);
 
-void trafficAuto(void);
-void trafficStop(void);
-
 #endif /* INC_TRAFFIC_H_ */

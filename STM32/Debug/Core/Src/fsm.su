@@ -1,0 +1,2 @@
+../Core/Src/fsm.c:12:6:fsmProcessing	4	static
+../Core/Src/fsm.c:15:6:fsmAuto	8	static

@@ -62,14 +62,7 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void test(void) {
-	if (buttonPressed(0)) {
-		trafficAuto();
-	}
-	if (buttonPressed(1)) {
-		trafficStop();
-	}
-}
+
 /* USER CODE END 0 */
 
 /**
@@ -111,7 +104,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   SCH_AddTask(ledBlink, 0, 1000);
   SCH_AddTask(buttonReading, 0, 10);
-  SCH_AddTask(test, 0, 10);
   while (1)
   {
     /* USER CODE END WHILE */

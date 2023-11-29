@@ -1,4 +1,5 @@
 "./Core/Src/button.o"
+"./Core/Src/fsm.o"
 "./Core/Src/led.o"
 "./Core/Src/main.o"
 "./Core/Src/scheduler.o"
