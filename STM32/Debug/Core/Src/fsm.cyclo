@@ -1,4 +1,6 @@
-../Core/Src/fsm.c:20:6:fsmAuto	1
-../Core/Src/fsm.c:29:6:fsmManual	11
-../Core/Src/fsm.c:64:6:fsmTunning	1
-../Core/Src/fsm.c:66:6:fsmProcessing	9
+../Core/Src/fsm.c:20:6:fsmPedestrian	5
+../Core/Src/fsm.c:36:6:fsmAuto	1
+../Core/Src/fsm.c:46:6:fsmManual	11
+../Core/Src/fsm.c:81:6:fsmTunning	1
+../Core/Src/fsm.c:83:6:fsmInit	1
+../Core/Src/fsm.c:91:6:fsmProcessing	9

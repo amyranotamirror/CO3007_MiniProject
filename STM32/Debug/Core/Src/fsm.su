@@ -1,4 +1,6 @@
-../Core/Src/fsm.c:20:6:fsmAuto	8	static
-../Core/Src/fsm.c:29:6:fsmManual	8	static
-../Core/Src/fsm.c:64:6:fsmTunning	4	static
-../Core/Src/fsm.c:66:6:fsmProcessing	16	static
+../Core/Src/fsm.c:20:6:fsmPedestrian	8	static
+../Core/Src/fsm.c:36:6:fsmAuto	8	static
+../Core/Src/fsm.c:46:6:fsmManual	8	static
+../Core/Src/fsm.c:81:6:fsmTunning	4	static
+../Core/Src/fsm.c:83:6:fsmInit	8	static
+../Core/Src/fsm.c:91:6:fsmProcessing	16	static

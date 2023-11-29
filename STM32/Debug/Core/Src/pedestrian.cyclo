@@ -1,0 +1,7 @@
+../Core/Src/pedestrian.c:16:6:pedestrianToggle	5
+../Core/Src/pedestrian.c:35:6:pedestrian0Off	1
+../Core/Src/pedestrian.c:38:6:pedestrian0Red	1
+../Core/Src/pedestrian.c:41:6:pedestrian0Green	1
+../Core/Src/pedestrian.c:45:6:pedestrian1Off	1
+../Core/Src/pedestrian.c:48:6:pedestrian1Red	1
+../Core/Src/pedestrian.c:51:6:pedestrian1Green	1

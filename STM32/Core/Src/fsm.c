@@ -7,15 +7,31 @@
 
 #include "fsm.h"
 
-#define FSM_AUTO_TASK 6
+#define FSM_AUTO_TASK 7
 #define FSM_MANUAL_TASK 1
 #define FSM_TUNNING_TASK 1
 
-static enum FSM_STATE fsmState = 0;
+static enum FSM_STATE fsmState = FSM_AUTO;
 
 static uint8_t fsmAutoIDs[FSM_AUTO_TASK] = {};
 static uint8_t fsmManualIDs[FSM_MANUAL_TASK] = {};
 static uint8_t fsmTunningIDs[FSM_TUNNING_TASK] = {};
+
+void fsmPedestrian(void) {
+	if (buttonPressed(1)) {
+		switch (trafficState[0]) {
+		case TRAFFIC_RED:
+			SCH_AddTask(pedestrian0Green, 0, 0);
+			break;
+		case TRAFFIC_YELLOW:
+		case TRAFFIC_GREEN:
+			SCH_AddTask(pedestrian0Red, 0, 0);
+			break;
+		default:
+			break;
+		}
+	}
+}
 
 void fsmAuto(void) {
 	fsmAutoIDs[0] = SCH_AddTask(traffic0Red, 0, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
@@ -24,6 +40,7 @@ void fsmAuto(void) {
 	fsmAutoIDs[3] = SCH_AddTask(traffic1Green, 0, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
 	fsmAutoIDs[4] = SCH_AddTask(traffic1Yellow, trafficGreenDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
 	fsmAutoIDs[5] = SCH_AddTask(traffic1Red, trafficGreenDuration + trafficYellowDuration, trafficRedDuration + trafficYellowDuration + trafficGreenDuration);
+	fsmAutoIDs[6] = SCH_AddTask(fsmPedestrian, 0, 10);
 }
 
 void fsmManual(void) {
@@ -62,6 +79,14 @@ void fsmManual(void) {
 }
 
 void fsmTunning(void) {}
+
+void fsmInit(void) {
+	SCH_AddTask(traffic0Off, 0, 0);
+	SCH_AddTask(traffic1Off, 0, 0);
+	SCH_AddTask(pedestrian0Off, 0, 0);
+	SCH_AddTask(pedestrian1Off, 0, 0);
+	SCH_AddTask(fsmAuto, 0, 0);
+}
 
 void fsmProcessing(void) {
 	if (buttonPressed(0)) {

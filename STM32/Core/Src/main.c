@@ -75,7 +75,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	}
 }
 void reportPrint(void) {
-	char str[10];
+	char str[20];
 	uint8_t count = SCH_Report();
 	HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "Tasks: %u\r\n", count), 100);
 }
@@ -122,8 +122,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   SCH_AddTask(ledBlink, 0, 1000);
   SCH_AddTask(buttonReading, 0, 10);
-  SCH_AddTask(fsmProcessing, 0, 10);
   SCH_AddTask(reportPrint, 500, 1000);
+  SCH_AddTask(fsmInit, 0, 0);
+  SCH_AddTask(fsmProcessing, 1000, 10);
   while (1)
   {
     /* USER CODE END WHILE */

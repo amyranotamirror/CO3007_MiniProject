@@ -46,6 +46,8 @@ void trafficToggle(uint8_t index, enum TRAFFIC_STATE state) {
 		HAL_GPIO_WritePin(trafficGreenPorts[index], trafficGreenPins[index], GPIO_PIN_RESET);
 		trafficState[index] = TRAFFIC_GREEN;
 		break;
+	default:
+		break;
 	}
 }
 
