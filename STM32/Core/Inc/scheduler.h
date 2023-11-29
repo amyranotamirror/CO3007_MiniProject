@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
-#define SCH_TASKNUMBER 40
+#define SCH_TASKNUMBER 16
 #define SCH_TIMERTICK 10
 
 typedef struct {
@@ -27,5 +27,7 @@ void SCH_Dispatch(void);
 
 uint8_t SCH_AddTask(void (*functionPointer)(void), uint32_t delay, uint32_t period);
 unsigned char SCH_DeleteTask(uint8_t id);
+
+uint8_t SCH_Report(void);
 
 #endif /* INC_SCHEDULER_H_ */

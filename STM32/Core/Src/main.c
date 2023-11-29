@@ -21,6 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdint.h>
+#include <stdio.h>
 #include "scheduler.h"
 #include "fsm.h"
 #include "button.h"
@@ -63,7 +65,18 @@ static void MX_USART2_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+uint8_t temp = 0;
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+	if (huart->Instance == USART2) {
+		HAL_UART_Receive_IT(&huart2, &temp, 1);
+		HAL_UART_Transmit(&huart2, &temp, 1, 50);
+	}
+}
+void reportPrint(void) {
+	char str[10];
+	uint8_t count = SCH_Report();
+	HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "Tasks: %u\r\n", count), 100);
+}
 /* USER CODE END 0 */
 
 /**
@@ -98,6 +111,7 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
+  HAL_UART_Receive_IT(&huart2, &temp, 1);
   SCH_Init();
   /* USER CODE END 2 */
 
@@ -106,6 +120,7 @@ int main(void)
   SCH_AddTask(ledBlink, 0, 1000);
   SCH_AddTask(buttonReading, 0, 10);
   SCH_AddTask(fsmProcessing, 0, 10);
+  SCH_AddTask(reportPrint, 500, 1000);
   while (1)
   {
     /* USER CODE END WHILE */
@@ -213,7 +228,7 @@ static void MX_USART2_UART_Init(void)
 
   /* USER CODE END USART2_Init 1 */
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
+  huart2.Init.BaudRate = 9600;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;

@@ -102,3 +102,13 @@ unsigned char SCH_DeleteTask(uint8_t id) {
     }
     return 0;
 }
+
+uint8_t SCH_Report(void) {
+	uint8_t count = 0;
+	for (uint8_t i = 0; i < SCH_TASKNUMBER; i ++) {
+		if (tasks[i].functionPointer != 0) {
+			count ++;
+		}
+	}
+	return count;
+}
