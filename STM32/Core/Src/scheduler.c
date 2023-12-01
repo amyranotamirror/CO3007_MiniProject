@@ -22,8 +22,8 @@ void SCH_Init(void) {
 void SCH_Update(void) {
     if (tasks[0].functionPointer == 0) return;
 	if (tasks[0].delay > 0) {
-		if (tasks[0].delay > SCH_TIMERTICK) {
-			tasks[0].delay -= SCH_TIMERTICK;
+		if (tasks[0].delay > TIMER_TICK) {
+			tasks[0].delay -= TIMER_TICK;
 		}
 		else {
 			tasks[0].delay = 0;
@@ -36,7 +36,6 @@ void SCH_Update(void) {
 
 void SCH_Dispatch(void) {
     if (tasks[0].flag == 0) return;
-    printf("Dispatch Task %d\n", tasks[0].id);
     (*tasks[0].functionPointer)();
     if (tasks[0].period > 0) {
         SCH_RefreshTask();
@@ -105,7 +104,7 @@ unsigned char SCH_DeleteTask(uint8_t id) {
 }
 
 unsigned char SCH_RefreshTask(void) {
-    if (tasks[0].functionPointer == 0 || tasks[0].delay != 0) return 0;
+    if (tasks[0].functionPointer == 0) return 0;
     SCH_Task currentTask = tasks[0];
     uint32_t currentDelay = 0;
     for (uint8_t i = 0; i < SCH_TASKNUMBER; i ++) {

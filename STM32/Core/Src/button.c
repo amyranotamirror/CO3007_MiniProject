@@ -28,7 +28,7 @@ void buttonReading(void) {
 				buttonStates[i] = buttonDebounce0[i];
 				if (buttonStates[i] == BUTTON_PRESSED) {
 					buttonFlags[i] = 1;
-					buttonCounters[i] = BUTTON_PRESSED_DURATION / SCH_TIMERTICK;
+					buttonCounters[i] = BUTTON_PRESSED_DURATION / TIMER_TICK;
 				}
 			}
 			else {
@@ -36,7 +36,7 @@ void buttonReading(void) {
 					buttonCounters[i] --;
 					if (buttonCounters[i] <= 0) {
 						buttonFlags[i] = 1;
-						buttonCounters[i] = BUTTON_HOLDING_DURATION / SCH_TIMERTICK;
+						buttonCounters[i] = BUTTON_HOLDING_DURATION / TIMER_TICK;
 					}
 				}
 			}

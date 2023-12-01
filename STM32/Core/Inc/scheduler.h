@@ -10,8 +10,8 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include "main.h"
 #define SCH_TASKNUMBER 16
-#define SCH_TIMERTICK 10
 
 typedef struct {
     void (*functionPointer)(void);

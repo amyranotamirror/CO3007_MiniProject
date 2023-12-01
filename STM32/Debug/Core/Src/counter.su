@@ -1,0 +1,2 @@
+../Core/Src/counter.c:10:6:counterRun	4	static
+../Core/Src/counter.c:37:6:counterReset	4	static

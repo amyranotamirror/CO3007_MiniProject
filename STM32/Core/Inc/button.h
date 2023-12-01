@@ -10,7 +10,6 @@
 
 #include <stdint.h>
 #include "main.h"
-#include "scheduler.h"
 
 #define BUTTON_NUMBER 4
 #define BUTTON_PRESSED_DURATION 1000

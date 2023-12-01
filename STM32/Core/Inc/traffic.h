@@ -10,19 +10,22 @@
 
 #include <stdint.h>
 #include "main.h"
-#include "scheduler.h"
+#include "fsm.h"
 #include "pedestrian.h"
 
 #define TRAFFIC_NUMBER 2
+#define TRAFFIC_DURARION_MIN 1000
+#define TRAFFIC_DURARION_MAX 20000
+#define TRAFFIC_DURARION_AUTO 1000
 
 enum TRAFFIC_STATE {TRAFFIC_OFF, TRAFFIC_RED, TRAFFIC_GREEN, TRAFFIC_YELLOW};
 
-extern int trafficRedDuration;
-extern int trafficGreenDuration;
-extern int trafficYellowDuration;
-extern enum TRAFFIC_STATE trafficStates[TRAFFIC_NUMBER];
+extern uint32_t trafficRedDuration;
+extern uint32_t trafficGreenDuration;
+extern uint32_t trafficYellowDuration;
 
-void trafficToggle(uint8_t index, enum TRAFFIC_STATE state);
+extern enum TRAFFIC_STATE trafficStates[TRAFFIC_NUMBER];
+extern uint32_t trafficCounters[TRAFFIC_NUMBER];
 
 void traffic0Off(void);
 void traffic0Red(void);
@@ -33,9 +36,5 @@ void traffic1Off(void);
 void traffic1Red(void);
 void traffic1Green(void);
 void traffic1Yellow(void);
-
-void trafficRedToggle(void);
-void trafficGreenToggle(void);
-void trafficYellowToggle(void);
 
 #endif /* INC_TRAFFIC_H_ */

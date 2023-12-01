@@ -1,0 +1,6 @@
+../Core/Src/buzzer.c:11:6:buzzer0Set	24	static
+../Core/Src/buzzer.c:25:6:buzzer1Set	24	static
+../Core/Src/buzzer.c:39:6:buzzer0On	8	static
+../Core/Src/buzzer.c:48:6:buzzer0Off	8	static
+../Core/Src/buzzer.c:52:6:buzzer1On	8	static
+../Core/Src/buzzer.c:61:6:buzzer1Off	8	static

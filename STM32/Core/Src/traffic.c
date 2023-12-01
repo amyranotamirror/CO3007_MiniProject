@@ -7,10 +7,11 @@
 
 #include "traffic.h"
 
-int trafficRedDuration = 5000;
-int trafficGreenDuration = 3000;
-int trafficYellowDuration = 2000;
+uint32_t trafficRedDuration = 5000;
+uint32_t trafficGreenDuration = 3000;
+uint32_t trafficYellowDuration = 2000;
 enum TRAFFIC_STATE trafficStates[TRAFFIC_NUMBER] = {};
+uint32_t trafficCounters[TRAFFIC_NUMBER];
 
 static GPIO_TypeDef* trafficRedPorts[TRAFFIC_NUMBER] = {TRAFFIC0_RED_GPIO_Port, TRAFFIC1_RED_GPIO_Port};
 static GPIO_TypeDef* trafficGreenPorts[TRAFFIC_NUMBER] = {TRAFFIC0_GREEN_GPIO_Port, TRAFFIC1_GREEN_GPIO_Port};
@@ -27,17 +28,14 @@ void trafficToggle(uint8_t index, enum TRAFFIC_STATE state) {
 		HAL_GPIO_WritePin(trafficYellowPorts[index], trafficYellowPins[index], GPIO_PIN_SET);
 		HAL_GPIO_WritePin(trafficGreenPorts[index], trafficGreenPins[index], GPIO_PIN_SET);
 		trafficStates[index] = TRAFFIC_OFF;
-		if (pedestrianStates[index] != PEDESTRIAN_OFF) {
-			pedestrianToggle(index, PEDESTRIAN_OFF);
-		}
 		break;
 	case TRAFFIC_RED:
 		HAL_GPIO_WritePin(trafficRedPorts[index], trafficRedPins[index], GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(trafficYellowPorts[index], trafficYellowPins[index], GPIO_PIN_SET);
 		HAL_GPIO_WritePin(trafficGreenPorts[index], trafficGreenPins[index], GPIO_PIN_SET);
 		trafficStates[index] = TRAFFIC_RED;
-		if (pedestrianStates[index] != PEDESTRIAN_OFF) {
-			pedestrianToggle(index, PEDESTRIAN_GREEN);
+		if (fsmState == FSM_AUTO) {
+			trafficCounters[index] = trafficRedDuration;
 		}
 		break;
 	case TRAFFIC_GREEN:
@@ -45,8 +43,8 @@ void trafficToggle(uint8_t index, enum TRAFFIC_STATE state) {
 		HAL_GPIO_WritePin(trafficYellowPorts[index], trafficYellowPins[index], GPIO_PIN_SET);
 		HAL_GPIO_WritePin(trafficGreenPorts[index], trafficGreenPins[index], GPIO_PIN_RESET);
 		trafficStates[index] = TRAFFIC_GREEN;
-		if (pedestrianStates[index] != PEDESTRIAN_OFF) {
-			pedestrianToggle(index, PEDESTRIAN_OFF);
+		if (fsmState == FSM_AUTO) {
+			trafficCounters[index] = trafficGreenDuration;
 		}
 		break;
 	case TRAFFIC_YELLOW:
@@ -54,6 +52,9 @@ void trafficToggle(uint8_t index, enum TRAFFIC_STATE state) {
 		HAL_GPIO_WritePin(trafficYellowPorts[index], trafficYellowPins[index], GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(trafficGreenPorts[index], trafficGreenPins[index], GPIO_PIN_SET);
 		trafficStates[index] = TRAFFIC_YELLOW;
+		if (fsmState == FSM_AUTO) {
+			trafficCounters[index] = trafficYellowDuration;
+		}
 		break;
 	default:
 		break;
@@ -84,23 +85,4 @@ void traffic1Green(void) {
 }
 void traffic1Yellow(void) {
 	trafficToggle(1, TRAFFIC_YELLOW);
-}
-
-void trafficRedToggle(void) {
-	SCH_AddTask(traffic0Red, 0, 0);
-	SCH_AddTask(traffic1Red, 0, 0);
-	SCH_AddTask(traffic0Off, 500, 0);
-	SCH_AddTask(traffic1Off, 500, 0);
-}
-void trafficGreenToggle(void) {
-	SCH_AddTask(traffic0Green, 0, 0);
-	SCH_AddTask(traffic1Green, 0, 0);
-	SCH_AddTask(traffic0Off, 500, 0);
-	SCH_AddTask(traffic1Off, 500, 0);
-}
-void trafficYellowToggle(void) {
-	SCH_AddTask(traffic0Yellow, 0, 0);
-	SCH_AddTask(traffic1Yellow, 0, 0);
-	SCH_AddTask(traffic0Off, 500, 0);
-	SCH_AddTask(traffic1Off, 500, 0);
 }

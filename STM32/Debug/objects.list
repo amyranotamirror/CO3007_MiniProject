@@ -1,4 +1,6 @@
 "./Core/Src/button.o"
+"./Core/Src/buzzer.o"
+"./Core/Src/counter.o"
 "./Core/Src/fsm.o"
 "./Core/Src/led.o"
 "./Core/Src/main.o"

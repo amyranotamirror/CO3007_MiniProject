@@ -27,7 +27,7 @@
 #include "fsm.h"
 #include "button.h"
 #include "led.h"
-#include "traffic.h"
+#include "buzzer.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -76,8 +76,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 }
 void reportPrint(void) {
 	char str[20];
-	uint8_t count = SCH_Report();
-	HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "Tasks: %u\r\n", count), 100);
+	HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "\r\nTasks: %u\r\n", SCH_Report()), 100);
+	HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "Time: %lu\r\n", HAL_GetTick()), 100);
+	HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "Counter: %lu\r\n", pedestrianCounters[0]), 100);
 }
 /* USER CODE END 0 */
 
@@ -114,6 +115,8 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
   HAL_UART_Receive_IT(&huart2, &temp, 1);
   SCH_Init();
   /* USER CODE END 2 */
@@ -121,12 +124,13 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   SCH_AddTask(ledBlink, 0, 1000);
-  SCH_AddTask(buttonReading, 0, 10);
-  SCH_AddTask(reportPrint, 500, 1000);
+  SCH_AddTask(reportPrint, 0, 500);
+  SCH_AddTask(buttonReading, 0, TIMER_TICK);
   SCH_AddTask(fsmInit, 0, 0);
-  SCH_AddTask(fsmProcessing, 1000, 10);
+  SCH_AddTask(fsmProcessing, 10, TIMER_TICK);
   while (1)
   {
+//	  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, pulseWidth);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
