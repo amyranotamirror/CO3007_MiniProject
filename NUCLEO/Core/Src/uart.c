@@ -16,7 +16,7 @@ void uartReport(void) {
 
 void uartRedDuration(void) {
 	char str[20];
-	HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "17SEG:%02lu#\r\n", trafficRedDuration / 1000), 100);
+	HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "!7SEG:%02lu#\r\n", trafficRedDuration / 1000), 100);
 }
 
 void uartGreenDuration(void) {
