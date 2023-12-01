@@ -12,7 +12,7 @@ SCH_Task tasks[SCH_TASKNUMBER];
 void SCH_Init(void) {
     for (uint8_t i = 0; i < SCH_TASKNUMBER; i ++) {
         tasks[i].functionPointer = 0;
-        tasks[i].id = SCH_TASKNUMBER - i - 1;
+        tasks[i].id = SCH_TASKNUMBER - i;
         tasks[i].delay = 0;
         tasks[i].period = 0;
         tasks[i].flag = 0;
@@ -46,7 +46,7 @@ void SCH_Dispatch(void) {
 }
 
 uint8_t SCH_AddTask(void (*functionPointer)(void), uint32_t delay, uint32_t period) {
-    if (tasks[SCH_TASKNUMBER - 1].functionPointer != 0) return SCH_TASKNUMBER;
+    if (tasks[SCH_TASKNUMBER - 1].functionPointer != 0) return 0;
     uint8_t currentID = tasks[SCH_TASKNUMBER - 1].id;
     uint32_t currentDelay = 0;
     for (uint8_t i = 0; i < SCH_TASKNUMBER; i ++) {
@@ -79,11 +79,12 @@ uint8_t SCH_AddTask(void (*functionPointer)(void), uint32_t delay, uint32_t peri
             return tasks[i].id;
         }
     }
-    return SCH_TASKNUMBER;
+    return 0;
 }
 
 unsigned char SCH_DeleteTask(uint8_t id) {
     for (uint8_t i = 0; i < SCH_TASKNUMBER; i ++) {
+    	if (tasks[i].functionPointer == 0) return 0;
         if (tasks[i].id == id) {
             uint8_t currentID = tasks[i].id;
             if (tasks[i + 1].functionPointer != 0) {

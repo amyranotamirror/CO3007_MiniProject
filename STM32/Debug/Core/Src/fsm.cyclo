@@ -1,5 +1,5 @@
 ../Core/Src/fsm.c:23:6:fsmAutoStop	1
-../Core/Src/fsm.c:29:6:fsmAutoProcessing	7
+../Core/Src/fsm.c:27:6:fsmAutoProcessing	7
 ../Core/Src/fsm.c:46:6:fsmAuto	1
 ../Core/Src/fsm.c:60:6:fsmManualStop	1
 ../Core/Src/fsm.c:67:6:fsmManualProcessing	11

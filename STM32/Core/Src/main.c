@@ -117,14 +117,13 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  SCH_AddTask(testMCU, 0, 1000);
-  SCH_AddTask(uartReport, 100, 5000);
+  SCH_AddTask(testMCU, 0, 500);
+//  SCH_AddTask(uartReport, 100, 5000);
   SCH_AddTask(buttonReading, 0, TIMER_TICK);
   SCH_AddTask(fsmInit, 0, 0);
   SCH_AddTask(fsmProcessing, 10, TIMER_TICK);
   while (1)
   {
-//	  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, pulseWidth);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

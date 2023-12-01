@@ -22,8 +22,6 @@ static uint8_t fsmTunningIDs[FSM_TUNNING_TASK] = {};
 
 void fsmAutoStop(void) {
 	SCH_AddTask(counterReset, 0, 0);
-	SCH_AddTask(pedestrian0Off, 0, 0);
-	SCH_AddTask(pedestrian1Off, 0, 0);
 }
 
 void fsmAutoProcessing(void) {
@@ -32,6 +30,7 @@ void fsmAutoProcessing(void) {
 	}
 	if (pedestrianStates[0] == PEDESTRIAN_GREEN && pedestrianCounters[0] <= 10) {
 		SCH_DeleteTask(fsmAutoIDs[9]);
+		fsmAutoIDs[9] = 0;
 		SCH_AddTask(pedestrian0Off, 10, 0);
 	}
 	if (buttonPressed(2)) {
@@ -39,6 +38,7 @@ void fsmAutoProcessing(void) {
 	}
 	if (pedestrianStates[1] == PEDESTRIAN_GREEN && pedestrianCounters[1] <= 10) {
 		SCH_DeleteTask(fsmAutoIDs[10]);
+		fsmAutoIDs[10] = 0;
 		SCH_AddTask(pedestrian1Off, 10, 0);
 	}
 }
@@ -99,8 +99,8 @@ void fsmManualProcessing(void) {
 
 void fsmManual(void) {
 	fsmManualIDs[0] = SCH_AddTask(fsmManualProcessing, 10, TIMER_TICK);
-	fsmManualIDs[1] = SCH_AddTask(pedestrian0On, 0, TIMER_TICK);
-	fsmManualIDs[2] = SCH_AddTask(pedestrian1On, 0, TIMER_TICK);
+	fsmManualIDs[1] = SCH_AddTask(pedestrian0On, 10, TIMER_TICK);
+	fsmManualIDs[2] = SCH_AddTask(pedestrian1On, 10, TIMER_TICK);
 	// Initialize for Manual Mode
 	SCH_AddTask(traffic0Red, 0, 0);
 	SCH_AddTask(traffic1Green, 0, 0);
