@@ -23,11 +23,11 @@
 /* USER CODE BEGIN Includes */
 #include <stdint.h>
 #include <stdio.h>
-#include "scheduler.h"
-#include "fsm.h"
 #include "button.h"
-#include "led.h"
-#include "traffic.h"
+#include "fsm.h"
+#include "scheduler.h"
+#include "test.h"
+#include "uart.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,8 +58,8 @@ UART_HandleTypeDef huart2;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_TIM2_Init(void);
 static void MX_USART2_UART_Init(void);
+static void MX_TIM2_Init(void);
 static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 
@@ -73,11 +73,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		HAL_UART_Receive_IT(&huart2, &temp, 1);
 		HAL_UART_Transmit(&huart2, &temp, 1, 50);
 	}
-}
-void reportPrint(void) {
-	char str[20];
-	uint8_t count = SCH_Report();
-	HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "Tasks: %u\r\n", count), 100);
 }
 /* USER CODE END 0 */
 
@@ -109,22 +104,24 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_TIM2_Init();
   MX_USART2_UART_Init();
+  MX_TIM2_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
   HAL_UART_Receive_IT(&huart2, &temp, 1);
   SCH_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  SCH_AddTask(ledBlink, 0, 1000);
-  SCH_AddTask(buttonReading, 0, 10);
-  SCH_AddTask(reportPrint, 500, 1000);
+  SCH_AddTask(testMCU, 0, 500);
+//  SCH_AddTask(uartReport, 100, 5000);
+  SCH_AddTask(buttonReading, 0, TIMER_TICK);
   SCH_AddTask(fsmInit, 0, 0);
-  SCH_AddTask(fsmProcessing, 1000, 10);
+  SCH_AddTask(fsmProcessing, 10, TIMER_TICK);
   while (1)
   {
     /* USER CODE END WHILE */
@@ -238,7 +235,7 @@ static void MX_TIM3_Init(void)
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 0;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 63999;
+  htim3.Init.Period = 7999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)

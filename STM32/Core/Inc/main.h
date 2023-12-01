@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdint.h>
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -91,7 +91,7 @@ void Error_Handler(void);
 #define PEDESTRIAN1_GREEN_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-
+#define TIMER_TICK 10
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

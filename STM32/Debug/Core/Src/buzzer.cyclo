@@ -1,0 +1,6 @@
+../Core/Src/buzzer.c:12:6:buzzer0Set	2
+../Core/Src/buzzer.c:26:6:buzzer1Set	2
+../Core/Src/buzzer.c:40:6:buzzer0On	2
+../Core/Src/buzzer.c:49:6:buzzer0Off	1
+../Core/Src/buzzer.c:53:6:buzzer1On	2
+../Core/Src/buzzer.c:62:6:buzzer1Off	1

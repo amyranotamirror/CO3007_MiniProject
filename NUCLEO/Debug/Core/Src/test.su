@@ -1,0 +1,4 @@
+../Core/Src/test.c:12:6:testMCU	8	static
+../Core/Src/test.c:16:6:testButton	8	static
+../Core/Src/test.c:31:6:testBuzzer	4	static
+../Core/Src/test.c:36:6:testLED	8	static
