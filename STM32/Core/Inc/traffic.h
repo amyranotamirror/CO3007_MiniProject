@@ -11,7 +11,6 @@
 #include <stdint.h>
 #include "main.h"
 #include "fsm.h"
-#include "pedestrian.h"
 
 #define TRAFFIC_NUMBER 2
 #define TRAFFIC_DURARION_MIN 1000

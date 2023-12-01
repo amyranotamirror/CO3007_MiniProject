@@ -1,4 +1,4 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+Core/Src/test.o: ../Core/Src/test.c ../Core/Inc/test.h ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -24,11 +24,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- ../Core/Inc/button.h ../Core/Inc/main.h ../Core/Inc/fsm.h \
- ../Core/Inc/button.h ../Core/Inc/buzzer.h ../Core/Inc/pedestrian.h \
- ../Core/Inc/traffic.h ../Core/Inc/fsm.h ../Core/Inc/counter.h \
- ../Core/Inc/scheduler.h ../Core/Inc/test.h ../Core/Inc/uart.h \
- ../Core/Inc/scheduler.h ../Core/Inc/test.h ../Core/Inc/uart.h
+ ../Core/Inc/button.h
+../Core/Inc/test.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
@@ -56,17 +53,3 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
 ../Core/Inc/button.h:
-../Core/Inc/main.h:
-../Core/Inc/fsm.h:
-../Core/Inc/button.h:
-../Core/Inc/buzzer.h:
-../Core/Inc/pedestrian.h:
-../Core/Inc/traffic.h:
-../Core/Inc/fsm.h:
-../Core/Inc/counter.h:
-../Core/Inc/scheduler.h:
-../Core/Inc/test.h:
-../Core/Inc/uart.h:
-../Core/Inc/scheduler.h:
-../Core/Inc/test.h:
-../Core/Inc/uart.h:

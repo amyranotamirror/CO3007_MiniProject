@@ -23,11 +23,11 @@
 /* USER CODE BEGIN Includes */
 #include <stdint.h>
 #include <stdio.h>
-#include "scheduler.h"
-#include "fsm.h"
 #include "button.h"
-#include "led.h"
-#include "buzzer.h"
+#include "fsm.h"
+#include "scheduler.h"
+#include "test.h"
+#include "uart.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -74,12 +74,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 		HAL_UART_Transmit(&huart2, &temp, 1, 50);
 	}
 }
-void reportPrint(void) {
-	char str[20];
-	HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "\r\nTasks: %u\r\n", SCH_Report()), 100);
-	HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "Time: %lu\r\n", HAL_GetTick()), 100);
-	HAL_UART_Transmit(&huart2, (void*)str, sprintf(str, "Counter: %lu\r\n", pedestrianCounters[0]), 100);
-}
 /* USER CODE END 0 */
 
 /**
@@ -123,8 +117,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  SCH_AddTask(ledBlink, 0, 1000);
-  SCH_AddTask(reportPrint, 0, 500);
+  SCH_AddTask(testMCU, 0, 1000);
+  SCH_AddTask(uartReport, 100, 5000);
   SCH_AddTask(buttonReading, 0, TIMER_TICK);
   SCH_AddTask(fsmInit, 0, 0);
   SCH_AddTask(fsmProcessing, 10, TIMER_TICK);
@@ -242,7 +236,7 @@ static void MX_TIM3_Init(void)
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 0;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 63999;
+  htim3.Init.Period = 7999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)

@@ -11,12 +11,11 @@
 #include <stdint.h>
 #include "main.h"
 #include "pedestrian.h"
-#include "traffic.h"
 
 #define BUZZER_NUMBER 2
 #define BUZZER_RATIO 50 / 100
 #define BUZZER_MIN 0
-#define BUZZER_MAX (htim3.Init.Period - 1)
+#define BUZZER_MAX htim3.Init.Period
 #define BUZZER_TIMEOUT 2000
 
 #define BUZZER_VOLUME_MIN 0		// Min volume: virtual num

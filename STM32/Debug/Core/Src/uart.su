@@ -1,0 +1,5 @@
+../Core/Src/uart.c:12:6:uartReport	56	static
+../Core/Src/uart.c:17:6:uartRedDuration	32	static
+../Core/Src/uart.c:22:6:uartGreenDuration	32	static
+../Core/Src/uart.c:27:6:uartYellowDuration	32	static
+../Core/Src/uart.c:32:6:uartCounter	32	static

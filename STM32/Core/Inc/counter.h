@@ -8,8 +8,8 @@
 #ifndef INC_COUNTER_H_
 #define INC_COUNTER_H_
 
-#include "traffic.h"
 #include "pedestrian.h"
+#include "traffic.h"
 
 void counterRun(void);
 void counterReset(void);

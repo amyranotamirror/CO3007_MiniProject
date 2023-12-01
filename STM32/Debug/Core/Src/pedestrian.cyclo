@@ -1,5 +1,5 @@
 ../Core/Src/pedestrian.c:19:6:pedestrianToggle	7
 ../Core/Src/pedestrian.c:52:6:pedestrian0On	4
-../Core/Src/pedestrian.c:67:6:pedestrian1On	4
-../Core/Src/pedestrian.c:82:6:pedestrian0Off	1
-../Core/Src/pedestrian.c:87:6:pedestrian1Off	1
+../Core/Src/pedestrian.c:68:6:pedestrian1On	4
+../Core/Src/pedestrian.c:84:6:pedestrian0Off	1
+../Core/Src/pedestrian.c:89:6:pedestrian1Off	1

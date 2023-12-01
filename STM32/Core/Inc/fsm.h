@@ -8,14 +8,16 @@
 #ifndef INC_FSM_H_
 #define INC_FSM_H_
 
-#include "scheduler.h"
-#include "counter.h"
 #include "button.h"
-#include "traffic.h"
-#include "pedestrian.h"
 #include "buzzer.h"
+#include "counter.h"
+#include "pedestrian.h"
+#include "scheduler.h"
+#include "test.h"
+#include "traffic.h"
+#include "uart.h"
 
-enum FSM_STATE {FSM_AUTO, FSM_MANUAL, FSM_TUNNING};
+enum FSM_STATE {FSM_INIT, FSM_AUTO, FSM_MANUAL, FSM_TUNNING};
 extern enum FSM_STATE fsmState;
 
 void fsmInit(void);

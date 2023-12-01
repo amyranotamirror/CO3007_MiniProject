@@ -8,6 +8,7 @@
 #include "buzzer.h"
 
 extern TIM_HandleTypeDef htim3;
+
 void buzzer0Set(uint8_t volume){
 	// Ensure volume stays in the range: 0% - 100%
 	if (volume < BUZZER_VOLUME_MIN) {

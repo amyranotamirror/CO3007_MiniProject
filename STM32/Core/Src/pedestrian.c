@@ -58,6 +58,7 @@ void pedestrian0On(void) {
 	case TRAFFIC_YELLOW:
 	case TRAFFIC_GREEN:
 		pedestrianToggle(0, PEDESTRIAN_RED);
+		buzzer0Off();
 		break;
 	default:
 		break;
@@ -73,6 +74,7 @@ void pedestrian1On(void) {
 	case TRAFFIC_YELLOW:
 	case TRAFFIC_GREEN:
 		pedestrianToggle(1, PEDESTRIAN_RED);
+		buzzer1Off();
 		break;
 	default:
 		break;
