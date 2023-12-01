@@ -1,0 +1,5 @@
+../Core/Src/uart.c:12:6:uartReport	1
+../Core/Src/uart.c:17:6:uartRedDuration	1
+../Core/Src/uart.c:22:6:uartGreenDuration	1
+../Core/Src/uart.c:27:6:uartYellowDuration	1
+../Core/Src/uart.c:32:6:uartCounter	1

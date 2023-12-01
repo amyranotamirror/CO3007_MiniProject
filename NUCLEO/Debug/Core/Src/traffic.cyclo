@@ -1,0 +1,9 @@
+../Core/Src/traffic.c:24:6:trafficToggle	8
+../Core/Src/traffic.c:64:6:traffic0Off	1
+../Core/Src/traffic.c:67:6:traffic0Red	1
+../Core/Src/traffic.c:70:6:traffic0Green	1
+../Core/Src/traffic.c:73:6:traffic0Yellow	1
+../Core/Src/traffic.c:77:6:traffic1Off	1
+../Core/Src/traffic.c:80:6:traffic1Red	1
+../Core/Src/traffic.c:83:6:traffic1Green	1
+../Core/Src/traffic.c:86:6:traffic1Yellow	1
