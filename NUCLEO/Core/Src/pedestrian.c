@@ -49,11 +49,15 @@ void pedestrianToggle(uint8_t index, enum PEDESTRIAN_STATE state) {
 	}
 }
 
+unsigned char buzzer0Flag = 0;
 void pedestrian0On(void) {
 	switch (trafficStates[0]) {
 	case TRAFFIC_RED:
 		pedestrianToggle(0, PEDESTRIAN_GREEN);
-		buzzer0On();
+		if (buzzer0Flag == 0) {
+			buzzer0On();
+			buzzer0Flag = 1;
+		}
 		break;
 	case TRAFFIC_YELLOW:
 	case TRAFFIC_GREEN:
@@ -65,11 +69,15 @@ void pedestrian0On(void) {
 	}
 }
 
+unsigned char buzzer1Flag = 0;
 void pedestrian1On(void) {
 	switch (trafficStates[1]) {
 	case TRAFFIC_RED:
 		pedestrianToggle(1, PEDESTRIAN_GREEN);
-		buzzer1On();
+		if (buzzer1Flag == 0) {
+			buzzer1On();
+			buzzer1Flag = 1;
+		}
 		break;
 	case TRAFFIC_YELLOW:
 	case TRAFFIC_GREEN:
@@ -84,9 +92,11 @@ void pedestrian1On(void) {
 void pedestrian0Off(void) {
 	pedestrianToggle(0, PEDESTRIAN_OFF);
 	buzzer0Off();
+	buzzer0Flag = 0;
 }
 
 void pedestrian1Off(void) {
 	pedestrianToggle(1, PEDESTRIAN_OFF);
 	buzzer1Off();
+	buzzer1Flag = 0;
 }
