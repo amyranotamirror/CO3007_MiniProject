@@ -63,8 +63,8 @@ all: main-build
 main-build: PEDESTRIAN_STM32F103C6.elf secondary-outputs
 
 # Tool invocations
-PEDESTRIAN_STM32F103C6.elf PEDESTRIAN_STM32F103C6.map: $(OBJS) $(USER_OBJS) C:\HCMUT\HK231\CO3009\Assignment\CO3007_MiniProject\STM32\STM32F103C6UX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "PEDESTRIAN_STM32F103C6.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\HCMUT\HK231\CO3009\Assignment\CO3007_MiniProject\STM32\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PEDESTRIAN_STM32F103C6.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+PEDESTRIAN_STM32F103C6.elf PEDESTRIAN_STM32F103C6.map: $(OBJS) $(USER_OBJS) C:\HCMUT\HK231\CO3009\Assignment\CO3010_MiniProject\CO3010_MiniProject\STM32\STM32F103C6UX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "PEDESTRIAN_STM32F103C6.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\HCMUT\HK231\CO3009\Assignment\CO3010_MiniProject\CO3010_MiniProject\STM32\STM32F103C6UX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PEDESTRIAN_STM32F103C6.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
