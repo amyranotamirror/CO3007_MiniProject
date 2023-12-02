@@ -10,7 +10,7 @@
 #define FSM_TASK 1
 #define FSM_AUTO_TASK 11
 #define FSM_MANUAL_TASK 3
-#define FSM_TUNNING_TASK 6
+#define FSM_TUNNING_TASK 5
 
 enum FSM_STATE fsmState;
 static enum TRAFFIC_STATE fsmTunningState;
@@ -120,30 +120,29 @@ void fsmTunningProcessing(void) {
 		SCH_DeleteTask(fsmTunningIDs[2]);
 		SCH_DeleteTask(fsmTunningIDs[3]);
 		SCH_DeleteTask(fsmTunningIDs[4]);
-		SCH_DeleteTask(fsmTunningIDs[5]);
 		switch (fsmTunningState) {
 		case TRAFFIC_RED:
-			fsmTunningIDs[1] = SCH_AddTask(uartGreenDuration, 50, 100);
-			fsmTunningIDs[2] = SCH_AddTask(traffic0Green, 0, 1000);
-			fsmTunningIDs[3] = SCH_AddTask(traffic1Green, 0, 1000);
-			fsmTunningIDs[4] = SCH_AddTask(traffic0Off, 500, 1000);
-			fsmTunningIDs[5] = SCH_AddTask(traffic1Off, 500, 1000);
+			SCH_AddTask(uartGreenDuration, 0, 0);
+			fsmTunningIDs[1] = SCH_AddTask(traffic0Green, 0, 1000);
+			fsmTunningIDs[2] = SCH_AddTask(traffic1Green, 0, 1000);
+			fsmTunningIDs[3] = SCH_AddTask(traffic0Off, 500, 1000);
+			fsmTunningIDs[4] = SCH_AddTask(traffic1Off, 500, 1000);
 			fsmTunningState = TRAFFIC_GREEN;
 			break;
 		case TRAFFIC_GREEN:
-			fsmTunningIDs[1] = SCH_AddTask(uartYellowDuration, 50, 100);
-			fsmTunningIDs[2] = SCH_AddTask(traffic0Yellow, 0, 1000);
-			fsmTunningIDs[3] = SCH_AddTask(traffic1Yellow, 0, 1000);
-			fsmTunningIDs[4] = SCH_AddTask(traffic0Off, 500, 1000);
-			fsmTunningIDs[5] = SCH_AddTask(traffic1Off, 500, 1000);
+			SCH_AddTask(uartYellowDuration, 0, 0);
+			fsmTunningIDs[1] = SCH_AddTask(traffic0Yellow, 0, 1000);
+			fsmTunningIDs[2] = SCH_AddTask(traffic1Yellow, 0, 1000);
+			fsmTunningIDs[3] = SCH_AddTask(traffic0Off, 500, 1000);
+			fsmTunningIDs[4] = SCH_AddTask(traffic1Off, 500, 1000);
 			fsmTunningState = TRAFFIC_YELLOW;
 			break;
 		case TRAFFIC_YELLOW:
-			fsmTunningIDs[1] = SCH_AddTask(uartRedDuration, 50, 100);
-			fsmTunningIDs[2] = SCH_AddTask(traffic0Red, 0, 1000);
-			fsmTunningIDs[3] = SCH_AddTask(traffic1Red, 0, 1000);
-			fsmTunningIDs[4] = SCH_AddTask(traffic0Off, 500, 1000);
-			fsmTunningIDs[5] = SCH_AddTask(traffic1Off, 500, 1000);
+			SCH_AddTask(uartRedDuration, 0, 0);
+			fsmTunningIDs[1] = SCH_AddTask(traffic0Red, 0, 1000);
+			fsmTunningIDs[2] = SCH_AddTask(traffic1Red, 0, 1000);
+			fsmTunningIDs[3] = SCH_AddTask(traffic0Off, 500, 1000);
+			fsmTunningIDs[4] = SCH_AddTask(traffic1Off, 500, 1000);
 			fsmTunningState = TRAFFIC_RED;
 			break;
 		default:
@@ -159,6 +158,7 @@ void fsmTunningProcessing(void) {
 			else {
 				trafficRedDuration = TRAFFIC_DURARION_MAX;
 			}
+			SCH_AddTask(uartRedDuration, 0, 0);
 			break;
 		case TRAFFIC_GREEN:
 			if (trafficGreenDuration < TRAFFIC_DURARION_MAX - TRAFFIC_DURARION_AUTO) {
@@ -167,6 +167,7 @@ void fsmTunningProcessing(void) {
 			else {
 				trafficGreenDuration = TRAFFIC_DURARION_MAX;
 			}
+			SCH_AddTask(uartGreenDuration, 0, 0);
 			break;
 		case TRAFFIC_YELLOW:
 			if (trafficYellowDuration < TRAFFIC_DURARION_MAX - TRAFFIC_DURARION_AUTO) {
@@ -175,6 +176,7 @@ void fsmTunningProcessing(void) {
 			else {
 				trafficYellowDuration = TRAFFIC_DURARION_MAX;
 			}
+			SCH_AddTask(uartYellowDuration, 0, 0);
 			break;
 		default:
 			break;
@@ -189,6 +191,7 @@ void fsmTunningProcessing(void) {
 			else {
 				trafficRedDuration = TRAFFIC_DURARION_MIN;
 			}
+			SCH_AddTask(uartRedDuration, 0, 0);
 			break;
 		case TRAFFIC_GREEN:
 			if (trafficGreenDuration > TRAFFIC_DURARION_MIN + TRAFFIC_DURARION_AUTO) {
@@ -197,6 +200,7 @@ void fsmTunningProcessing(void) {
 			else {
 				trafficGreenDuration = TRAFFIC_DURARION_MIN;
 			}
+			SCH_AddTask(uartGreenDuration, 0, 0);
 			break;
 		case TRAFFIC_YELLOW:
 			if (trafficYellowDuration > TRAFFIC_DURARION_MIN + TRAFFIC_DURARION_AUTO) {
@@ -205,6 +209,7 @@ void fsmTunningProcessing(void) {
 			else {
 				trafficYellowDuration = TRAFFIC_DURARION_MIN;
 			}
+			SCH_AddTask(uartYellowDuration, 0, 0);
 			break;
 		default:
 			break;
@@ -216,11 +221,11 @@ void fsmTunning(void) {
 	fsmTunningIDs[0] = SCH_AddTask(fsmTunningProcessing, 10, TIMER_TICK);
 	// Initialize for Tunning Mode
 	fsmTunningState = TRAFFIC_RED;
-	fsmTunningIDs[1] = SCH_AddTask(uartRedDuration, 50, 100);
-	fsmTunningIDs[2] = SCH_AddTask(traffic0Red, 0, 1000);
-	fsmTunningIDs[3] = SCH_AddTask(traffic1Red, 0, 1000);
-	fsmTunningIDs[4] = SCH_AddTask(traffic0Off, 500, 1000);
-	fsmTunningIDs[5] = SCH_AddTask(traffic1Off, 500, 1000);
+	SCH_AddTask(uartRedDuration, 0, 0);
+	fsmTunningIDs[1] = SCH_AddTask(traffic0Red, 0, 1000);
+	fsmTunningIDs[2] = SCH_AddTask(traffic1Red, 0, 1000);
+	fsmTunningIDs[3] = SCH_AddTask(traffic0Off, 500, 1000);
+	fsmTunningIDs[4] = SCH_AddTask(traffic1Off, 500, 1000);
 }
 
 void fsmInit(void) {

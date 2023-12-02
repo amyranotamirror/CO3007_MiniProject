@@ -6,6 +6,6 @@
 ../Core/Src/fsm.c:104:6:fsmManual	8	static
 ../Core/Src/fsm.c:113:6:fsmTunningStop	4	static
 ../Core/Src/fsm.c:117:6:fsmTunningProcessing	8	static
-../Core/Src/fsm.c:215:6:fsmTunning	8	static
-../Core/Src/fsm.c:226:6:fsmInit	8	static
-../Core/Src/fsm.c:233:6:fsmProcessing	16	static
+../Core/Src/fsm.c:220:6:fsmTunning	8	static
+../Core/Src/fsm.c:231:6:fsmInit	8	static
+../Core/Src/fsm.c:238:6:fsmProcessing	16	static

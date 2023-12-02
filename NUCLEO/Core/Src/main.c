@@ -68,6 +68,7 @@ static void MX_TIM3_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 uint8_t temp = 0;
+uint16_t vol = 0;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	if (huart->Instance == USART2) {
 		HAL_UART_Receive_IT(&huart2, &temp, 1);
@@ -124,7 +125,7 @@ int main(void)
    SCH_AddTask(fsmProcessing, 10, TIMER_TICK);
   while (1)
   {
-//    	  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 20000);
+//    	  __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 0);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -238,7 +239,7 @@ static void MX_TIM3_Init(void)
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 0;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 63999;
+  htim3.Init.Period = 31999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)

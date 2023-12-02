@@ -13,14 +13,14 @@
 #include "pedestrian.h"
 
 #define BUZZER_NUMBER 2
-#define BUZZER_RATIO 100 / 100
+#define BUZZER_RATIO 50 / 100
 #define BUZZER_MIN 0
 #define BUZZER_MAX htim3.Init.Period
 #define BUZZER_TIMEOUT 2000
 
 #define BUZZER_VOLUME_MIN 0		// Min volume: virtual num
 #define BUZZER_VOLUME_MAX 100	// Max volume: virtual num
-#define BUZZER_VOLUME_AUTO 0	// Auto volume: virtual num
+#define BUZZER_VOLUME_AUTO 10	// Auto volume: virtual num
 
 extern uint8_t buzzerVolumes[BUZZER_NUMBER];
 

@@ -1,4 +1,4 @@
 ../Core/Src/test.c:12:6:testMCU	1
 ../Core/Src/test.c:16:6:testButton	4
-../Core/Src/test.c:31:6:testBuzzer	1
-../Core/Src/test.c:36:6:testLED	1
+../Core/Src/test.c:33:6:testBuzzer	1
+../Core/Src/test.c:38:6:testLED	1

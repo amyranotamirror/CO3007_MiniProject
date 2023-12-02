@@ -19,9 +19,9 @@ void buzzer0Set(uint8_t volume){
 	}
 
     // Calculate and set PWM to Buzzer
-	volume = BUZZER_VOLUME_MAX - volume;
+//	volume = BUZZER_VOLUME_MAX - volume;// for LED
     uint32_t pulseWidth = BUZZER_MAX * BUZZER_RATIO * volume / 100;
-    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, pulseWidth);
+    __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, pulseWidth);
 }
 
 void buzzer1Set(uint8_t volume){
@@ -34,9 +34,9 @@ void buzzer1Set(uint8_t volume){
 	}
 
     // Calculate and set PWM to Buzzer
-	volume = BUZZER_VOLUME_MAX - volume;
+//	volume = BUZZER_VOLUME_MAX - volume;// for LED
     uint32_t pulseWidth = BUZZER_MAX * BUZZER_RATIO * volume / 100;
-    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, pulseWidth);
+    __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, pulseWidth);
 }
 
 void buzzer0On(void) {
